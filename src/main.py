@@ -1,18 +1,19 @@
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
 from llm import get_llm
 
 def main():
+    prompt = ChatPromptTemplate.from_template(
+        "Explique o que é LCEL em LangChain em uma frase curta."
+    )
+
     llm = get_llm()
+    parser = StrOutputParser()
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", "Você é um assistente útil."),
-        ("human", "Explique o que é LangChain em uma frase.")
-    ])
+    chain = prompt | llm | parser
 
-    chain = prompt | llm
     response = chain.invoke({})
-
-    print(response.content)
+    print(response)
 
 if __name__ == "__main__":
     main()

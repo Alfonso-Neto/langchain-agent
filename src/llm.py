@@ -1,14 +1,9 @@
-import os
-from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
-from config import MODEL_NAME, TEMPERATURE
-
-load_dotenv()
+from langchain_groq import ChatGroq
+from config import settings
 
 def get_llm():
-    return ChatOpenAI(
-        api_key=os.getenv("GROQ_API_KEY"),
-        base_url="https://api.groq.com/openai/v1",
-        model=MODEL_NAME,
-        temperature=TEMPERATURE
+    return ChatGroq(
+        model=settings["MODEL_NAME"],
+        temperature=settings["TEMPERATURE"],
+        api_key=settings["GROQ_API_KEY"],
     )
