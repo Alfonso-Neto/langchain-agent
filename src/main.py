@@ -1,19 +1,16 @@
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from llm import get_llm
+from agent import get_agent
 
 def main():
-    prompt = ChatPromptTemplate.from_template(
-        "Explique o que é LCEL em LangChain em uma frase curta."
-    )
+    agent = get_agent()
 
-    llm = get_llm()
-    parser = StrOutputParser()
-
-    chain = prompt | llm | parser
-
-    response = chain.invoke({})
-    print(response)
+    response = agent.invoke({
+        "input": "Qual é o usuário com o ID 2 localmente, usando somente a tool buscar_usuario?"
+    })
+    
+    print(response["output"])
 
 if __name__ == "__main__":
     main()
