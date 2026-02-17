@@ -8,6 +8,7 @@ def consultar_banco(id: int) -> str:
     """
     Busca um usuário pelo ID no banco SQLite.
     Retorna nome e email do usuário.
+    Use esta ferramenta apenas quando precisar de dados oficiais do sistema ou se a busca local falhar.
     """
     try: 
         conn = sqlite3.connect(DB_PATH)

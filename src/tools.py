@@ -7,7 +7,9 @@ def somar(a: int, b: int) -> int:
 
 @tool
 def buscar_usuario(id: int) -> str:
-    """Busca um usuário fictício pelo ID"""
+    """Busca um usuário APENAS na lista interna/local da memória.
+    Use esta ferramenta qunado o usuário pedir uma busca simples ou local.
+    """
     usuarios = {
         1: "Alfonso",
         2: "Felipe",
