@@ -132,3 +132,13 @@ python src/main.py
 │   └── tools.py        # Ferramentas auxiliares (soma, busca local)
 ├── README.md
 └── requirements.txt    # Dependências do projeto
+
+# Como adicionar novas tools (Ferramentas)
+
+O agente pode aprender novas habilidades facilmente. Para adicionar uma nova ferramenta, siga estes dois passos:
+
+1. Crie a função em src/tools.py
+Use o decorador @tool e escreva uma docstring (o texto entre aspas triplas) muito clara. O agente usa esse texto para entender quando e como usar a ferramenta.
+
+2. Registre a ferramenta em src/agent.py
+Importe sua nova função e adicione-a à lista de ferramentas dentro da função get_agent():
