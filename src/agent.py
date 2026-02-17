@@ -19,13 +19,15 @@ def get_agent():
         tools = [somar, buscar_usuario, consultar_banco]
 
         prompt = ChatPromptTemplate.from_messages([
-                ("system", """Você é um assistente de busca de dados.
-                REGRAS OBRIGATÓRIAS:
-                1. NUNCA tente adivinhar um ID. Se o usuário não forneceu um ID nesta mensagem nem no histórico, PERGUNTE o ID antes de usar qualquer ferramenta.
-                2. 'buscar_usuario' acessa a lista LOCAL.
-                3. 'consultar_banco' acessa o banco SQLITE.
-                4. Antes de usar uma ferramenta, verifique o histórico (chat_history) para ver se o usuário já mencionou o ID ou nome dele.
-                5. Se houver conflito entre a busca Local e o SQLite, apenas reporte os dois resultados de forma objetiva."""
+                ("system", """Você é um Especialista em Auditoria de Sistemas.
+                Sua missão é cruzar dados locais com o banco de dados oficial.
+
+                REGRAS DE OPERAÇÃO:
+                1. MEMÓRIA: Antes de usar qualquer ferramenta, verifique se o usuário já mencionou o ID ou nome no histórico.
+                2. PRECISÃO: NUNCA use o ID 1 a menos que o usuário peça explicitamente ou que esse ID esteja no histórico recente.
+                3. FERRAMENTAS: Use 'buscar_usuario' para dados preliminares/locais e 'consultar_banco' para dados oficiais do SQLite.
+                4. CÁLCULOS: Use a ferramenta 'somar' para qualquer operação matemática, não faça de cabeça.
+                5. Se houver diferença entre o nome local e o nome no banco, aponte isso como uma 'Divergência de Auditoria'."""
                 ),
                 MessagesPlaceholder(variable_name="chat_history"),
                 ("human", "{input}"),
@@ -42,7 +44,7 @@ def get_agent():
                 agent=agent,
                 tools=tools,
                 verbose=True,
-                max_iterations=5,
+                max_iterations=1,
         )
 
         return RunnableWithMessageHistory(

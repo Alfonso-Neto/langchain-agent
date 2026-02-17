@@ -4,23 +4,30 @@ from llm import get_llm
 from agent import get_agent
 
 def main():
-    agent_with_memory = get_agent()
+    agente = get_agent()
 
     config = {"configurable": {"session_id": "usuario_123"}}
 
-    print("#Pergunta 1")
-    res1 = agent_with_memory.invoke(
-        {"input": "Olá, meu nome é Alfonso e meu ID é 1."},
+    print("#Passo 1 - Identificação")
+    agente.invoke(
+        {"input": "Olá, estamos analisando o usuário de ID 3."},
         config=config
     )
-    print(res1["output"])
 
-    print("\n#Pergunta 2")
-    res2 = agent_with_memory.invoke(
-        {"input": "Qual é o meu nome e o que consta localmente sobre meu ID? use a tool buscar_usuario"},
+
+    print("\n#Passo 2 - Testar memória")
+    res = agente.invoke(
+        {"input": "Busque este usuário localmente e também no banco oficial. Existem divergências?"},
         config=config
     )
-    print(res2["output"])
+    print(res["output"])
+
+    print("#Passo 3 - Cálculo")
+    res_soma = agente.invoke(
+        {"input": "O usuário 3 disse que tem 10 pontos. O usuário 2 tem 15. Qual o total?"},
+        config=config
+    )
+    print(res_soma["output"])
 
 if __name__ == "__main__":
     main()
